@@ -5,7 +5,7 @@ import logo from '../../assets/images/logo.png';
 const Navbar = () => {
   const navigate = useNavigate();
 
-  const rol = "despachador";
+  const rol = "logistica";
 
   let displayName = 'Vista';
   if (rol === 'despachador') {
@@ -30,11 +30,11 @@ const Navbar = () => {
       </div>
 
       <div className="cursor-pointer" onClick={handleLogout}>
-        <img 
+        {/* <img 
           src={logo} 
           alt="Logo" 
           className="h-8" 
-        />
+        /> */}
       </div>
     </nav>
   );

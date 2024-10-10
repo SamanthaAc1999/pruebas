@@ -11,8 +11,7 @@ export default {
       xl: '1440px',
     },
     colors: {
-      'principal': '#ffff',
-      'white': '#fff',
+      white: '#fff'
     },
     fontFamily: {
       sans: ['Graphik', 'sans-serif'],
