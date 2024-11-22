@@ -3,9 +3,9 @@ export async function validacion() {
     const fechaCaduca = localStorage.getItem("expiracion");
     const nuevaFecha = new Date(fechaCaduca);
 
-    if (fechaActual.getTime() < nuevaFecha.getTime() -15 * 60000) {
+    if (fechaActual.getTime() < nuevaFecha.getTime() - 15 * 60000) {
         return 1;
-    } else if (fechaActual.getTime() >= nuevaFecha.getTime() -15*60000 && fechaActual.getTime() < nuevaFecha.getTime()) {
+    } else if (fechaActual.getTime() >= nuevaFecha.getTime() - 15 * 60000 && fechaActual.getTime() < nuevaFecha.getTime()) {
         // return await renovartoken();
     } else {
         localStorage.removeItem("token");

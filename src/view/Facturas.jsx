@@ -138,41 +138,41 @@ const Facturas = () => {
     // const validado = await validacion();
     const validado = 1;
     if (validado === 1) {
-        if (!datos || datos.length === 0) {
-            console.error('No hay facturas seleccionadas');
-            return
-        } 
-        const codigos = new Set();
-        const itemsSeleccionados = datos.filter (item =>{
-            if (item.verificacion && codigos.has(item.numeroGuia)){
-                codigos.add(item.numeroGuia);
-                return true
-            }
-            return false
+      if (!datos || datos.length === 0) {
+        console.error('No hay facturas seleccionadas');
+        return
+      }
+      const codigos = new Set();
+      const itemsSeleccionados = datos.filter(item => {
+        if (item.verificacion && codigos.has(item.numeroGuia)) {
+          codigos.add(item.numeroGuia);
+          return true
+        }
+        return false
+      });
+      if (itemsSeleccionados.length === 0) {
+        Swal.fire({
+          icon: "warning",
+          title: "No hay items aprobados para autorizar",
+          text: "Verifique que todos los items tengan la aprobación marcada.",
+          showConfirmButton: true,
         });
-        if (itemsSeleccionados.length === 0) {
-            Swal.fire({
-              icon: "warning",
-              title: "No hay items aprobados para autorizar",
-              text: "Verifique que todos los items tengan la aprobación marcada.",
-              showConfirmButton: true,
-            });
-            return;
-          }
-          const details = datos.map((item) => ({
-            id: item.numeroGuia,
-            fechaEntrega: item.fechaEntrega,
-            provincia: item.provincia,
-            ciudad: item.ciudad,
-            cliente: item.cliente,
-            total: parseFloat(item.precioSugerido),
-            despachador: item.despachador,
-            verificacion: item.verificacion,
-          }));
-          console.log(details)
+        return;
+      }
+      const details = datos.map((item) => ({
+        id: item.numeroGuia,
+        fechaEntrega: item.fechaEntrega,
+        provincia: item.provincia,
+        ciudad: item.ciudad,
+        cliente: item.cliente,
+        total: parseFloat(item.precioSugerido),
+        despachador: item.despachador,
+        verificacion: item.verificacion,
+      }));
+      console.log(details)
 
     } else {
-        console.log("error")
+      console.log("error")
     }
   }
 
@@ -203,7 +203,7 @@ const Facturas = () => {
               id="desde"
               value={inicio}
               name="Desde"
-                onChange={handleInicio}
+              onChange={handleInicio}
               className="w-full px-4 py-2 bg-[#fff] border border-[#D0D0D4] text-[#a9a3af] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
@@ -214,9 +214,9 @@ const Facturas = () => {
             <input
               type="date"
               id="hasta"
-                value={fin}
-                name="Hasta"
-                onChange={handleFin}
+              value={fin}
+              name="Hasta"
+              onChange={handleFin}
               className="w-full px-4 py-2 bg-[#fff] border border-[#D0D0D4] text-[#a9a3af] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
@@ -237,13 +237,13 @@ const Facturas = () => {
           <button
             type="button"
             className="bg-white text-[#17224f] border border-[#17224f] font-light py-1 px-2 mb-6 rounded-md hover:bg-red-700 transition duration-300"
-            onClick={generarGuias}     
+            onClick={generarGuias}
           >
             Generar Guías
           </button>
         </div>
         <table className="w-full text-sm/[18px] text-left text-gray-500">
-        <thead className="text-sm/[18px] text-[#3B8DBD] uppercase bg-gray-50">
+          <thead className="text-sm/[18px] text-[#3B8DBD] uppercase bg-gray-50">
             <tr className='border-b border-[#C3C3C3]'>
               <th className="px-4 py-3">N° Factura</th>
               <th className="px-4 py-3">Fecha Entrega</th>
@@ -273,27 +273,27 @@ const Facturas = () => {
                 <td className="px-4 py-3">{row.cliente}</td>
                 <td className="px-4 py-3">${row.total}</td>
                 <td className="px-4 py-3">
-                <select
-                className=" px-4 py-2 bg-[#fff] border border-[#D0D0D4] text-[#a9a3af] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                // value={sucursal.whsName || " "}
-                // onChange={handleSucursal}
-              >
-                <option value="">Seleccione un despachador</option>
-                {/* {datosSucursal.map((suc) => (
+                  <select
+                    className=" px-4 py-2 bg-[#fff] border border-[#D0D0D4] text-[#a9a3af] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  // value={sucursal.whsName || " "}
+                  // onChange={handleSucursal}
+                  >
+                    <option value="">Seleccione un despachador</option>
+                    {/* {datosSucursal.map((suc) => (
                   <option key={suc.whsCode} value={suc.whsName}>
                     {suc.whsName}
                   </option>
                 ))} */}
-              </select>
+                  </select>
 
                 </td>
-                <td className="px-4 py-3"> 
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" onClick={openModal} xmlns="http://www.w3.org/2000/svg">
-<path fillRule="evenodd" clipRule="evenodd" d="M12 8.25C9.92893 8.25 8.25 9.92893 8.25 12C8.25 14.0711 9.92893 15.75 12 15.75C14.0711 15.75 15.75 14.0711 15.75 12C15.75 9.92893 14.0711 8.25 12 8.25ZM9.75 12C9.75 10.7574 10.7574 9.75 12 9.75C13.2426 9.75 14.25 10.7574 14.25 12C14.25 13.2426 13.2426 14.25 12 14.25C10.7574 14.25 9.75 13.2426 9.75 12Z" fill="#1C274C"/>
-<path fillRule="evenodd" clipRule="evenodd" d="M12 3.25C7.48587 3.25 4.44529 5.9542 2.68057 8.24686L2.64874 8.2882C2.24964 8.80653 1.88206 9.28392 1.63269 9.8484C1.36564 10.4529 1.25 11.1117 1.25 12C1.25 12.8883 1.36564 13.5471 1.63269 14.1516C1.88206 14.7161 2.24964 15.1935 2.64875 15.7118L2.68057 15.7531C4.44529 18.0458 7.48587 20.75 12 20.75C16.5141 20.75 19.5547 18.0458 21.3194 15.7531L21.3512 15.7118C21.7504 15.1935 22.1179 14.7161 22.3673 14.1516C22.6344 13.5471 22.75 12.8883 22.75 12C22.75 11.1117 22.6344 10.4529 22.3673 9.8484C22.1179 9.28391 21.7504 8.80652 21.3512 8.28818L21.3194 8.24686C19.5547 5.9542 16.5141 3.25 12 3.25ZM3.86922 9.1618C5.49864 7.04492 8.15036 4.75 12 4.75C15.8496 4.75 18.5014 7.04492 20.1308 9.1618C20.5694 9.73159 20.8263 10.0721 20.9952 10.4545C21.1532 10.812 21.25 11.2489 21.25 12C21.25 12.7511 21.1532 13.188 20.9952 13.5455C20.8263 13.9279 20.5694 14.2684 20.1308 14.8382C18.5014 16.9551 15.8496 19.25 12 19.25C8.15036 19.25 5.49864 16.9551 3.86922 14.8382C3.43064 14.2684 3.17374 13.9279 3.00476 13.5455C2.84684 13.188 2.75 12.7511 2.75 12C2.75 11.2489 2.84684 10.812 3.00476 10.4545C3.17374 10.0721 3.43063 9.73159 3.86922 9.1618Z" fill="#1C274C"/>
-</svg>
+                <td className="px-4 py-3">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" onClick={openModal} xmlns="http://www.w3.org/2000/svg">
+                    <path fillRule="evenodd" clipRule="evenodd" d="M12 8.25C9.92893 8.25 8.25 9.92893 8.25 12C8.25 14.0711 9.92893 15.75 12 15.75C14.0711 15.75 15.75 14.0711 15.75 12C15.75 9.92893 14.0711 8.25 12 8.25ZM9.75 12C9.75 10.7574 10.7574 9.75 12 9.75C13.2426 9.75 14.25 10.7574 14.25 12C14.25 13.2426 13.2426 14.25 12 14.25C10.7574 14.25 9.75 13.2426 9.75 12Z" fill="#1C274C" />
+                    <path fillRule="evenodd" clipRule="evenodd" d="M12 3.25C7.48587 3.25 4.44529 5.9542 2.68057 8.24686L2.64874 8.2882C2.24964 8.80653 1.88206 9.28392 1.63269 9.8484C1.36564 10.4529 1.25 11.1117 1.25 12C1.25 12.8883 1.36564 13.5471 1.63269 14.1516C1.88206 14.7161 2.24964 15.1935 2.64875 15.7118L2.68057 15.7531C4.44529 18.0458 7.48587 20.75 12 20.75C16.5141 20.75 19.5547 18.0458 21.3194 15.7531L21.3512 15.7118C21.7504 15.1935 22.1179 14.7161 22.3673 14.1516C22.6344 13.5471 22.75 12.8883 22.75 12C22.75 11.1117 22.6344 10.4529 22.3673 9.8484C22.1179 9.28391 21.7504 8.80652 21.3512 8.28818L21.3194 8.24686C19.5547 5.9542 16.5141 3.25 12 3.25ZM3.86922 9.1618C5.49864 7.04492 8.15036 4.75 12 4.75C15.8496 4.75 18.5014 7.04492 20.1308 9.1618C20.5694 9.73159 20.8263 10.0721 20.9952 10.4545C21.1532 10.812 21.25 11.2489 21.25 12C21.25 12.7511 21.1532 13.188 20.9952 13.5455C20.8263 13.9279 20.5694 14.2684 20.1308 14.8382C18.5014 16.9551 15.8496 19.25 12 19.25C8.15036 19.25 5.49864 16.9551 3.86922 14.8382C3.43064 14.2684 3.17374 13.9279 3.00476 13.5455C2.84684 13.188 2.75 12.7511 2.75 12C2.75 11.2489 2.84684 10.812 3.00476 10.4545C3.17374 10.0721 3.43063 9.73159 3.86922 9.1618Z" fill="#1C274C" />
+                  </svg>
 
-                 </td>
+                </td>
                 <td className="px-4 py-3">
                   <input
                     type="checkbox"
@@ -321,8 +321,8 @@ const Facturas = () => {
         onClose={closeModal}
         title="FACTURA  #2093"
       >
-      <table className="w-full text-sm/[18px] text-left text-gray-500">
-        <thead className="text-sm/[18px] text-[#3B8DBD] uppercase bg-gray-50">
+        <table className="w-full text-sm/[18px] text-left text-gray-500">
+          <thead className="text-sm/[18px] text-[#3B8DBD] uppercase bg-gray-50">
             <tr className='border-b border-[#C3C3C3]'>
               <th className="px-4 py-3">Código</th>
               <th className="px-4 py-3">Descripcion</th>
@@ -345,7 +345,7 @@ const Facturas = () => {
         </table>
       </Modal>
     </div>
-    
+
   );
 };
 

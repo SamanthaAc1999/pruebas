@@ -1,21 +1,21 @@
-  // const Card = ({ icon, name, quantity  }) => {
-  //   return (
-  //       <div className="bg-white rounded-lg shadow-md p-4 flex items-center justify-between">
-  //       <div className="w-10 h-10 flex items-center justify-center bg-gray-100 rounded-full text-2xl">
-  //         {icon}
-  //       </div>
-  //       <div className="text-right">
-  //         <p className="text-sm font-medium text-[#151635]">{name}</p>
-  //         <p className="text-2xl font-bold text-[#151635]">{quantity}</p>
-  //       </div>
-  //     </div>
-  //   );
-  // };
-  
-  // export default Card;
-  
+// const Card = ({ icon, name, quantity  }) => {
+//   return (
+//       <div className="bg-white rounded-lg shadow-md p-4 flex items-center justify-between">
+//       <div className="w-10 h-10 flex items-center justify-center bg-gray-100 rounded-full text-2xl">
+//         {icon}
+//       </div>
+//       <div className="text-right">
+//         <p className="text-sm font-medium text-[#151635]">{name}</p>
+//         <p className="text-2xl font-bold text-[#151635]">{quantity}</p>
+//       </div>
+//     </div>
+//   );
+// };
 
- 
+// export default Card;
+
+
+
 // const Card = ({ icon, name, quantity, color }) => {
 //     return (
 //       <div className="bg-white rounded-lg shadow-md overflow-hidden">
@@ -31,9 +31,9 @@
 //       </div>
 //     );
 //   };
-  
+
 //   export default Card;
-  
+
 
 
 

@@ -15,22 +15,22 @@ function App() {
   return (
     <>
       <BrowserRouter>
-      <Suspense fallback={<DotSpinner/>}>
-      <Layout>
-        <Routes>
-          <Route path='/' element={<Login />} />
-          <Route path='/denied' element={<Denied/>} />
-          <Route path='*' element={<Notfound/>}/>
-          {/* DESPACHADOR */}
-          <Route path='/despacho' element={<FiltroGuia/>}/>
-          {/* LOGISTICO */}
-          <Route path='/logistica' element={<Facturas/>}/>
-          {/* PRODUCCION */}
-          <Route path='/produccion' element={<Tablero/>}/>
-          <Route path='/produccion/detalles' element={<Details/>}/>
-        </Routes>
-        </Layout>
-      </Suspense>
+        <Suspense fallback={<DotSpinner />}>
+          <Layout>
+            <Routes>
+              <Route path='/' element={<Login />} />
+              <Route path='/denied' element={<Denied />} />
+              <Route path='*' element={<Notfound />} />
+              {/* DESPACHADOR */}
+              <Route path='/despacho' element={<FiltroGuia />} />
+              {/* LOGISTICO */}
+              <Route path='/logistica' element={<Facturas />} />
+              {/* PRODUCCION */}
+              <Route path='/produccion' element={<Tablero />} />
+              <Route path='/produccion/detalles' element={<Details />} />
+            </Routes>
+          </Layout>
+        </Suspense>
       </BrowserRouter>
     </>
   );

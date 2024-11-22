@@ -7,32 +7,32 @@ const PrivateRoute = () => {
     const permissions = useSelector((state) => state.auth.permissions);
     const token = localStorage.getItem("token");
     const location = useLocation();
-    const {pathname} = location;
+    const { pathname } = location;
     const permisoEncontrado = permissions.find(permiso => permiso.ruta === pathname);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const isDifferent = !permissions.some (permission =>
+        const isDifferent = !permissions.some(permission =>
             permission.nombre === "" &&
             permission.ruta === "" &&
             permission.permiso === true &&
             permission.menu === true
         );
-        if (isDifferent){
+        if (isDifferent) {
             setLoading(false);
         }
     }, [permissions]);
 
-    if (loading){
-        return <DotSpinner/>
+    if (loading) {
+        return <DotSpinner />
     }
     if (!token) {
-        return <Navigate to={"/"}/>
+        return <Navigate to={"/"} />
     }
-    if (!permisoEncontrado || !permisoEncontrado.permiso){
-        return <Navigate to={'/denied'}/>;
+    if (!permisoEncontrado || !permisoEncontrado.permiso) {
+        return <Navigate to={'/denied'} />;
     }
-    return <Outlet/>;
+    return <Outlet />;
 }
 
 export default PrivateRoute;

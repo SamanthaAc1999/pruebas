@@ -12,7 +12,7 @@ export const Layout = (props) => {
     <>
       {/* Mostrar Navbar solo si no estamos en la ruta '/' */}
       {!isHome && <Navbar />}
-      
+
       {/* Mostrar el contenedor solo si no estamos en la ruta '/' */}
       {!isHome ? (
         <div className="pt-28 p-10 w-full min-h-screen h-full bg-[#F1F1F5]">
