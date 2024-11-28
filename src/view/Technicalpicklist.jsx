@@ -1,145 +1,181 @@
 import { TablePagination } from '@mui/material';
 import Swal from 'sweetalert2';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import fetchApi from '../utils/fetchApi';
+import { useSelector } from 'react-redux';
+import { validacion } from '../utils/apiUtils';
 
 // Componente de FiltroGuia con formulario y tabla
 const FiltroGuia = () => {
     const [currentPage, setCurrentPage] = useState(0);
     const rowsPerPage = 10;
+    const CardCode = useSelector((state) => state.auth.datos_Usuario.CARDCODE);
+    const [data, setData] = useState([]);
+
+    const getData = async () => {
+        const validado = await validacion();
+        if (validado === 1){
+            const token = localStorage.getItem("token");
+            const datos = await fetchApi({
+                endPoint: `/purchaseorder/${CardCode}`,
+                method: "GET",
+                pagination: true,
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer" +token
+                }
+            });
+            if (datos.error){
+                console.log("error")
+                return;
+            }
+            pasoSiguiente(datos.datos)
+        } else {
+            console.log("error 2")
+        }
+    };
+
+    const pasoSiguiente = (info) => {
+        setData(info)
+    };
+
+    useEffect(() => {
+        getData();
+      }, []);
 
     // Datos de ejemplo para la tabla
-    const data = [
-        {
-            numeroGuia: '001',
-            fechaEntrega: '2023-10-01',
-            provincia: 'Azuay',
-            ciudad: 'Cuenca',
-            direccion: 'Calle A',
-            cliente: 'Cliente 1',
-            total: '100',
-            verificacion: false
-        },
-        {
-            numeroGuia: '002',
-            fechaEntrega: '2023-10-02',
-            provincia: 'Azuay',
-            ciudad: 'Cuenca',
-            direccion: 'Calle B',
-            cliente: 'Cliente 2',
-            total: '150',
-            verificacion: false
-        },
-        {
-            numeroGuia: '003',
-            fechaEntrega: '2023-10-03',
-            provincia: 'Pichincha',
-            ciudad: 'Quito',
-            direccion: 'Calle C',
-            cliente: 'Cliente 3',
-            total: '200',
-            verificacion: false
-        },
-        {
-            numeroGuia: '004',
-            fechaEntrega: '2023-10-01',
-            provincia: 'Pichincha',
-            ciudad: 'Quito',
-            direccion: 'Calle A',
-            cliente: 'Cliente 4',
-            total: '100',
-            verificacion: false
-        },
-        {
-            numeroGuia: '005',
-            fechaEntrega: '2023-10-02',
-            provincia: 'Guayas',
-            ciudad: 'Guayaquil',
-            direccion: 'Calle B',
-            cliente: 'Cliente 5',
-            total: '150',
-            verificacion: false
-        },
-        {
-            numeroGuia: '006',
-            fechaEntrega: '2023-10-03',
-            provincia: 'Guayas',
-            ciudad: 'Guayaquil',
-            direccion: 'Calle C',
-            cliente: 'Cliente 6',
-            total: '200',
-            verificacion: false
-        },
-        {
-            numeroGuia: '007',
-            fechaEntrega: '2023-10-01',
-            provincia: 'Tungurahua',
-            ciudad: 'Ambato',
-            direccion: 'Calle A',
-            cliente: 'Cliente 7',
-            total: '100',
-            verificacion: false
-        },
-        {
-            numeroGuia: '008',
-            fechaEntrega: '2023-10-02',
-            provincia: 'Tungurahua',
-            ciudad: 'Ambato',
-            direccion: 'Calle B',
-            cliente: 'Cliente 8',
-            total: '150',
-            verificacion: false
-        },
-        {
-            numeroGuia: '009',
-            fechaEntrega: '2023-10-03',
-            provincia: 'Azuay',
-            ciudad: 'Cuenca',
-            direccion: 'Calle C',
-            cliente: 'Cliente 9',
-            total: '200',
-            verificacion: false
-        },
-        {
-            numeroGuia: '010',
-            fechaEntrega: '2023-10-01',
-            provincia: 'Azuay',
-            ciudad: 'Cuenca',
-            direccion: 'Calle A',
-            cliente: 'Cliente 10',
-            total: '100',
-            verificacion: false
-        },
-        {
-            numeroGuia: '011',
-            fechaEntrega: '2023-10-02',
-            provincia: 'Guayas',
-            ciudad: 'Guayaquil',
-            direccion: 'Calle B',
-            cliente: 'Cliente 11',
-            total: '150',
-            verificacion: false
-        },
-        {
-            numeroGuia: '012',
-            fechaEntrega: '2023-10-02',
-            provincia: 'Guayas',
-            ciudad: 'Guayaquil',
-            direccion: 'Calle B',
-            cliente: 'Cliente 12',
-            total: '150',
-            verificacion: false
-        },
-        {
-            numeroGuia: '013',
-            fechaEntrega: '2023-10-01',
-            provincia: 'Azuay',
-            ciudad: 'Cuenca',
-            direccion: 'Calle A',
-            cliente: 'Cliente 13',
-            total: '100',
-            verificacion: true
-        },
-    ];
+    // const data = [
+    //     {
+    //         numeroGuia: '001',
+    //         fechaEntrega: '2023-10-01',
+    //         provincia: 'Azuay',
+    //         ciudad: 'Cuenca',
+    //         direccion: 'Calle A',
+    //         cliente: 'Cliente 1',
+    //         total: '100',
+    //         verificacion: false
+    //     },
+    //     {
+    //         numeroGuia: '002',
+    //         fechaEntrega: '2023-10-02',
+    //         provincia: 'Azuay',
+    //         ciudad: 'Cuenca',
+    //         direccion: 'Calle B',
+    //         cliente: 'Cliente 2',
+    //         total: '150',
+    //         verificacion: false
+    //     },
+    //     {
+    //         numeroGuia: '003',
+    //         fechaEntrega: '2023-10-03',
+    //         provincia: 'Pichincha',
+    //         ciudad: 'Quito',
+    //         direccion: 'Calle C',
+    //         cliente: 'Cliente 3',
+    //         total: '200',
+    //         verificacion: false
+    //     },
+    //     {
+    //         numeroGuia: '004',
+    //         fechaEntrega: '2023-10-01',
+    //         provincia: 'Pichincha',
+    //         ciudad: 'Quito',
+    //         direccion: 'Calle A',
+    //         cliente: 'Cliente 4',
+    //         total: '100',
+    //         verificacion: false
+    //     },
+    //     {
+    //         numeroGuia: '005',
+    //         fechaEntrega: '2023-10-02',
+    //         provincia: 'Guayas',
+    //         ciudad: 'Guayaquil',
+    //         direccion: 'Calle B',
+    //         cliente: 'Cliente 5',
+    //         total: '150',
+    //         verificacion: false
+    //     },
+    //     {
+    //         numeroGuia: '006',
+    //         fechaEntrega: '2023-10-03',
+    //         provincia: 'Guayas',
+    //         ciudad: 'Guayaquil',
+    //         direccion: 'Calle C',
+    //         cliente: 'Cliente 6',
+    //         total: '200',
+    //         verificacion: false
+    //     },
+    //     {
+    //         numeroGuia: '007',
+    //         fechaEntrega: '2023-10-01',
+    //         provincia: 'Tungurahua',
+    //         ciudad: 'Ambato',
+    //         direccion: 'Calle A',
+    //         cliente: 'Cliente 7',
+    //         total: '100',
+    //         verificacion: false
+    //     },
+    //     {
+    //         numeroGuia: '008',
+    //         fechaEntrega: '2023-10-02',
+    //         provincia: 'Tungurahua',
+    //         ciudad: 'Ambato',
+    //         direccion: 'Calle B',
+    //         cliente: 'Cliente 8',
+    //         total: '150',
+    //         verificacion: false
+    //     },
+    //     {
+    //         numeroGuia: '009',
+    //         fechaEntrega: '2023-10-03',
+    //         provincia: 'Azuay',
+    //         ciudad: 'Cuenca',
+    //         direccion: 'Calle C',
+    //         cliente: 'Cliente 9',
+    //         total: '200',
+    //         verificacion: false
+    //     },
+    //     {
+    //         numeroGuia: '010',
+    //         fechaEntrega: '2023-10-01',
+    //         provincia: 'Azuay',
+    //         ciudad: 'Cuenca',
+    //         direccion: 'Calle A',
+    //         cliente: 'Cliente 10',
+    //         total: '100',
+    //         verificacion: false
+    //     },
+    //     {
+    //         numeroGuia: '011',
+    //         fechaEntrega: '2023-10-02',
+    //         provincia: 'Guayas',
+    //         ciudad: 'Guayaquil',
+    //         direccion: 'Calle B',
+    //         cliente: 'Cliente 11',
+    //         total: '150',
+    //         verificacion: false
+    //     },
+    //     {
+    //         numeroGuia: '012',
+    //         fechaEntrega: '2023-10-02',
+    //         provincia: 'Guayas',
+    //         ciudad: 'Guayaquil',
+    //         direccion: 'Calle B',
+    //         cliente: 'Cliente 12',
+    //         total: '150',
+    //         verificacion: false
+    //     },
+    //     {
+    //         numeroGuia: '013',
+    //         fechaEntrega: '2023-10-01',
+    //         provincia: 'Azuay',
+    //         ciudad: 'Cuenca',
+    //         direccion: 'Calle A',
+    //         cliente: 'Cliente 13',
+    //         total: '100',
+    //         verificacion: true
+    //     },
+    // ];
     // Función para manejar el cambio de página
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
@@ -247,7 +283,6 @@ const FiltroGuia = () => {
                             className="w-full px-4 py-2 bg-[#fff] border border-[#D0D0D4] text-[#a9a3af] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
-                    {/* <div className="flex justify-end items-center w-full"> */}
                     <div className="flex-1 min-w-[200px] justify-end">
                         <button
                             type="button"
@@ -303,7 +338,6 @@ const FiltroGuia = () => {
                     </tbody>
                 </table>
 
-                {/* Paginación */}
                 <TablePagination
                     component="div"
                     // count={cantItems}

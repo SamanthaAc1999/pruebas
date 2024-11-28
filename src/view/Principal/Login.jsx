@@ -1,8 +1,30 @@
 import logo from '../../assets/images/logo.png';
 import login from '../../assets/images/login.png';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useDispatch } from "react-redux";
+
+// import fetchApi from '../utils/fetchApi';
+import { updateAuth, updateRenovar } from "../../features/auth/authSlice";
+
+
 const Login = () => {
     const navigate = useNavigate();
+    const [nombre, setNombre] = useState("");
+    const [contra, setContra] = useState("");
+
+    const handleName = (e) => {
+        setNombre(e.target.value)
+    };
+
+    const handleContra = (e) => {
+        setContra(e.target.value)
+    };
+
+    const IngresarLogin = () => {
+        navigate('/produccion')
+    };
+    
     return (
         <div className="h-full flex">
             {/* Mitad izquierda (contenedor vacío) */}
@@ -29,6 +51,8 @@ const Login = () => {
                         id="username"
                         type="text"
                         placeholder="Nombre de usuario"
+                        value={nombre}
+                        onChange={handleName}
                     />
                 </div>
 
@@ -45,6 +69,8 @@ const Login = () => {
                         id="password"
                         type="password"
                         placeholder="***********"
+                        value={contra}
+                        onChange={handleContra}
                     />
                 </div>
 
@@ -53,7 +79,8 @@ const Login = () => {
                     <button
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                         type="button"
-                        onClick={() => navigate('/produccion')}
+                        onClick={IngresarLogin}
+                        // onClick={() => navigate('/produccion')}
                     >
                         Ingresar
                     </button>
